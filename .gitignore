@@ -1,0 +1,23 @@
+# Build artifacts & compiled binaries
+*.exe
+*.pdb
+*.dll
+bin/
+obj/
+
+# Local shortcut backups & extracted proprietary icon asset
+*.bak
+*.lnk
+antigravity-icon.png
+
+# Capture / benchmark / temp outputs
+capture/
+*.log
+*.tmp
+
+# IDE & OS metadata
+.vs/
+.vscode/
+Thumbs.db
+Desktop.ini
+.DS_Store

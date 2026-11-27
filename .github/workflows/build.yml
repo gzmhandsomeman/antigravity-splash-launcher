@@ -1,0 +1,30 @@
+name: Build Windows Launcher
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build AntigravityLauncher.exe with built-in csc.exe
+        shell: powershell
+        run: |
+          powershell -ExecutionPolicy Bypass -File .\build.ps1
+          if (-not (Test-Path .\AntigravityLauncher.exe)) {
+            throw "AntigravityLauncher.exe was not produced!"
+          }
+          Get-Item .\AntigravityLauncher.exe | Select-Object Name, Length
+
+      - name: Upload built executable artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AntigravityLauncher-win-x64
+          path: AntigravityLauncher.exe
+          if-no-files-found: error
